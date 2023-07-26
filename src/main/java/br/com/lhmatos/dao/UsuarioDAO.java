@@ -43,8 +43,21 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 		return null;
 	}
 
-	@Override
 	public Usuario update(Usuario usuario) {
+		String sql = "UPDATE usuario SET ds_senha = ?, qt_tempo_inatividade = ? WHERE nm_login = ?";
+		try (Connection conn = getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, usuario.getDsSenha());
+			stmt.setInt(2, usuario.getQtTempoInatividade());
+			stmt.setString(3, usuario.getNmLogin());
+			int affectedRows = stmt.executeUpdate();
+			if (affectedRows > 0) {
+				return usuario;
+			}
+		} catch (SQLException e) {
+			// Tratamento de exceções
+			e.printStackTrace();
+		}
 		return null;
 	}
 
