@@ -5,6 +5,8 @@ import br.com.lhmatos.dto.UsuarioDTO;
 import br.com.lhmatos.model.Usuario;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Optional;
+
 public class UsuarioServiceImpl implements UsuarioService {
 
 	private final UsuarioDAO usuarioDAO;
@@ -35,17 +37,35 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioDTO read(String id) {
-		return null;
+	public UsuarioDTO findById(String id) {
+		Usuario usuario = usuarioDAO.findById(id);
+		return Optional.ofNullable(usuario)
+				.map(UsuarioDTO::fromUsuario)
+				.orElseThrow(() -> new RuntimeException("Usuario com o ID " + id + " não encontrado."));
+	}
+
+	public UsuarioDTO findByLogin(String login) {
+		Usuario usuario = usuarioDAO.findByLogin(login);
+		return Optional.ofNullable(usuario)
+				.map(UsuarioDTO::fromUsuario)
+				.orElseThrow(() -> new RuntimeException("Usuario com o login " + login + " não encontrado."));
 	}
 
 	@Override
 	public UsuarioDTO update(UsuarioDTO usuarioDTO) {
-		return null;
+		Usuario updatedUsuario = usuarioDAO.update(usuarioDTO.toUsuario());
+		if (updatedUsuario == null) {
+			throw new RuntimeException("A atualização do usuário falhou");
+		}
+		return UsuarioDTO.fromUsuario(updatedUsuario);
 	}
 
 	@Override
 	public boolean delete(String id) {
-		return false;
+		UsuarioDTO usuario = this.findById(id);
+		if (usuario == null) {
+			throw new RuntimeException("Usuário com id " + id + " não existe");
+		}
+		return usuarioDAO.delete(id);
 	}
 }
