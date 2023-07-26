@@ -43,6 +43,21 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 		return null;
 	}
 
+	public Usuario findByLogin(String id) {
+		String sql = "SELECT * FROM usuario WHERE nm_login = ?";
+		try (Connection conn = getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new Usuario(rs.getString("nm_login"), rs.getString("ds_senha"), rs.getInt("qt_tempo_inatividade"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public Usuario update(Usuario usuario) {
 		String sql = "UPDATE usuario SET ds_senha = ?, qt_tempo_inatividade = ? WHERE nm_login = ?";
 		try (Connection conn = getConnection();
