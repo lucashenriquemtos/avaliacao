@@ -28,7 +28,7 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	}
 
 	@Override
-	public Usuario getById(String id) {
+	public Usuario findById(String id) {
 		String sql = "SELECT * FROM usuario WHERE nm_login = ?";
 		try (Connection conn = getConnection();
 			 PreparedStatement stmt = conn.prepareStatement(sql)) {
