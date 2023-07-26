@@ -44,7 +44,7 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	}
 
 	@Override
-	public Object update(Object o) {
+	public Usuario update(Usuario usuario) {
 		return null;
 	}
 
