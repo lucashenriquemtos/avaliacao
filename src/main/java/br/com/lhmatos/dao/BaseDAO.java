@@ -16,7 +16,7 @@ public abstract class BaseDAO<T> {
 
 	public abstract T create(T t);
 
-	public abstract T read(String id);
+	public abstract T getById(String id);
 
 	public abstract T update(T t);
 
