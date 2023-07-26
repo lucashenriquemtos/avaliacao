@@ -41,14 +41,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario usuario = usuarioDAO.findById(id);
 		return Optional.ofNullable(usuario)
 				.map(UsuarioDTO::fromUsuario)
-				.orElseThrow(() -> new RuntimeException("Usuario com o ID " + id + " não encontrado."));
+				.orElseThrow(() -> new RuntimeException("Usuario com o ID: " + id + " não encontrado."));
 	}
 
 	public UsuarioDTO findByLogin(String login) {
 		Usuario usuario = usuarioDAO.findByLogin(login);
 		return Optional.ofNullable(usuario)
 				.map(UsuarioDTO::fromUsuario)
-				.orElseThrow(() -> new RuntimeException("Usuario com o login " + login + " não encontrado."));
+				.orElseThrow(() -> new RuntimeException("Usuario com o login: " + login + " não encontrado."));
 	}
 
 	@Override
@@ -61,11 +61,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public boolean delete(String id) {
-		UsuarioDTO usuario = this.findById(id);
+	public boolean deleteByLogin(String login) {
+		UsuarioDTO usuario = this.findById(login);
 		if (usuario == null) {
-			throw new RuntimeException("Usuário com id " + id + " não existe");
+			throw new RuntimeException("Usuário com id " + login + " não existe");
 		}
-		return usuarioDAO.delete(id);
+		return usuarioDAO.delete(login);
 	}
 }
