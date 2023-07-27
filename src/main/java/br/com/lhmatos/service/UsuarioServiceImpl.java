@@ -44,13 +44,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 				.orElseThrow(() -> new RuntimeException("Usuario com o ID: " + id + " não encontrado."));
 	}
 
-	public UsuarioDTO findByLogin(String login) {
-		Usuario usuario = usuarioDAO.findByLogin(login);
-		return Optional.ofNullable(usuario)
-				.map(UsuarioDTO::fromUsuario)
-				.orElseThrow(() -> new RuntimeException("Usuario com o login: " + login + " não encontrado."));
-	}
-
 	@Override
 	public UsuarioDTO update(UsuarioDTO usuarioDTO) {
 		Usuario updatedUsuario = usuarioDAO.update(usuarioDTO.toUsuario());
@@ -67,5 +60,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 			throw new RuntimeException("Usuário com id " + login + " não existe");
 		}
 		return usuarioDAO.delete(login);
+	}
+
+	public void login(String username, String password) {
+		Optional<Usuario> usuario = usuarioDAO.findByUsername(username);
+		if (!usuario.isPresent()) {
+			throw new IllegalArgumentException("Usuário não encontrado");
+		}
+
+		if (!BCrypt.checkpw(password, usuario.get().getDsSenha())) {
+			throw new IllegalArgumentException("Senha incorreta");
+		}
 	}
 }
