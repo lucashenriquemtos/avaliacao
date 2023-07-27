@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioDAO.delete(login);
 	}
 
-	public void login(String username, String password) {
+	public Optional<UsuarioDTO> login(String username, String password) {
 		Optional<Usuario> usuario = usuarioDAO.findByUsername(username);
 		if (!usuario.isPresent()) {
 			throw new IllegalArgumentException("Usuário não encontrado");
@@ -71,5 +71,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (!BCrypt.checkpw(password, usuario.get().getDsSenha())) {
 			throw new IllegalArgumentException("Senha incorreta");
 		}
+
+		return Optional.of(UsuarioDTO.fromUsuario(usuario.get()));
 	}
 }
