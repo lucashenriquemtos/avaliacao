@@ -2,17 +2,17 @@ package br.com.lhmatos.dao;
 
 import br.com.lhmatos.model.ExameRealizado;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
 
 public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 	@Override
 	public ExameRealizado create(ExameRealizado exameRealizado) {
-		String sql = "INSERT INTO exame_realizado(cd_funcionario, cd_exame, dt_realizacao) VALUES (?, ?, ?)";
+		if (isExameRealizadoExistente(exameRealizado.getCdFuncionario(), exameRealizado.getCdExame())) {
+			throw new IllegalArgumentException("Não é possível cadastrar o exame, pois ele já foi realizado pelo funcionário.");
+		}
 
+		String sql = "INSERT INTO exame_realizado(cd_funcionario, cd_exame, dt_realizacao) VALUES (?, ?, ?)";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, exameRealizado.getCdFuncionario());
 			stmt.setInt(2, exameRealizado.getCdExame());
@@ -59,6 +59,25 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 
 			if (affectedRows > 0) {
 				return true;
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean isExameRealizadoExistente(Integer cdFuncionario, Integer cdExame) {
+		String sql = "SELECT COUNT(*) FROM exame_realizado WHERE cd_funcionario = ? AND cd_exame = ?";
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, cdFuncionario);
+			stmt.setInt(2, cdExame);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				if (count > 0) {
+					return true;
+				}
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
