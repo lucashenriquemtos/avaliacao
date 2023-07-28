@@ -3,6 +3,7 @@ package br.com.lhmatos.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public abstract class BaseDAO<T> {
 
@@ -16,7 +17,7 @@ public abstract class BaseDAO<T> {
 
 	public abstract T create(T t);
 
-	public abstract T findById(String id);
+	public abstract Optional<T> findById(String id);
 
 	public abstract T update(T t);
 
