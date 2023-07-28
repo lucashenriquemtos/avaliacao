@@ -48,4 +48,21 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 	public boolean delete(String id) {
 		throw new UnsupportedOperationException("Essa operação não é suportada.");
 	}
+
+	public boolean deleteByFuncionarioAndExame(Integer cdFuncionario, Integer cdExame) {
+		String sql = "DELETE FROM exame_realizado WHERE cd_funcionario = ? AND cd_exame = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, cdFuncionario);
+			stmt.setInt(2, cdExame);
+			int affectedRows = stmt.executeUpdate();
+
+			if (affectedRows > 0) {
+				return true;
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }
