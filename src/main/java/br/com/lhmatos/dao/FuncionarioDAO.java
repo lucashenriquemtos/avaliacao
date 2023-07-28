@@ -47,7 +47,16 @@ public class FuncionarioDAO extends BaseDAO<Funcionario> {
 
 	@Override
 	public Funcionario update(Funcionario funcionario) {
-		return null;
+		String sql = "UPDATE funcionario SET nm_funcionario = ? WHERE cd_funcionario = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, funcionario.getNmFuncionario());
+			stmt.setInt(2, funcionario.getCdFuncionario());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return funcionario;
 	}
 
 	@Override
