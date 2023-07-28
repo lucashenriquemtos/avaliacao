@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lucas Henrique Matos
-  Date: 26/07/2023
-  Time: 14:33
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta http-equiv="refresh" content="0; URL=login\login.jsp">
 </head>
 <body>
-
 </body>
 </html>

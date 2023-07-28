@@ -3,7 +3,6 @@ package br.com.lhmatos.action;
 import br.com.lhmatos.dto.UsuarioDTO;
 import br.com.lhmatos.service.UsuarioServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.inject.Inject;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
@@ -16,7 +15,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	private String password;
 	private Map<String, Object> session;
 
-	@Inject
+
 	public LoginAction(UsuarioServiceImpl usuarioService) {
 		this.usuarioService = usuarioService;
 	}
