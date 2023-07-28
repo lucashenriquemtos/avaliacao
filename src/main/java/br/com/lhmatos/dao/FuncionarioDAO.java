@@ -4,6 +4,7 @@ import br.com.lhmatos.model.Funcionario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -24,7 +25,24 @@ public class FuncionarioDAO extends BaseDAO<Funcionario> {
 
 	@Override
 	public Optional<Funcionario> findById(String id) {
-		return Optional.empty();
+		Optional<Funcionario> funcionarioOptional = Optional.empty();
+		String sql = "SELECT * FROM funcionario WHERE cd_funcionario = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Funcionario funcionario = new Funcionario(
+						rs.getInt("cd_funcionario"),
+						rs.getString("nm_funcionario")
+				);
+				funcionarioOptional = Optional.of(funcionario);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return funcionarioOptional;
 	}
 
 	@Override
