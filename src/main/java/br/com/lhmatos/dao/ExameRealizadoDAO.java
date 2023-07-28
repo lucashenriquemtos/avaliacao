@@ -31,7 +31,17 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 
 	@Override
 	public ExameRealizado update(ExameRealizado exameRealizado) {
-		return null;
+		String sql = "UPDATE exame_realizado SET dt_realizacao = ? WHERE cd_funcionario = ? AND cd_exame = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setDate(1, Date.valueOf(exameRealizado.getDtRealizacao()));
+			stmt.setInt(2, exameRealizado.getCdFuncionario());
+			stmt.setInt(3, exameRealizado.getCdExame());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return exameRealizado;
 	}
 
 	@Override
