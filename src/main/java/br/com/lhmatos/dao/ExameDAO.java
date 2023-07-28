@@ -4,9 +4,11 @@ import br.com.lhmatos.model.Exame;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
-public class ExameDAO extends BaseDAO<Exame>{
+public class ExameDAO extends BaseDAO<Exame> {
 
 	@Override
 	public Exame create(Exame exame) {
@@ -27,8 +29,28 @@ public class ExameDAO extends BaseDAO<Exame>{
 	}
 
 	@Override
-	public Exame findById(String id) {
-		return null;
+	public Optional<Exame> findById(String id) {
+		Optional<Exame> exameOptional = Optional.empty();
+		String sql = "SELECT * FROM exame WHERE cd_exame = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Exame exame = new Exame(
+						rs.getInt("cd_exame"),
+						rs.getString("nm_exame"),
+						rs.getBoolean("ic_ativo"),
+						rs.getString("ds_detalhe_exame"),
+						rs.getString("ds_detalhe_exame1")
+				);
+				exameOptional = Optional.of(exame);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return exameOptional;
 	}
 
 	@Override
