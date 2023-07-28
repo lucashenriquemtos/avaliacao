@@ -61,6 +61,18 @@ public class FuncionarioDAO extends BaseDAO<Funcionario> {
 
 	@Override
 	public boolean delete(String id) {
+		String sql = "DELETE FROM funcionario WHERE cd_funcionario = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			int affectedRows = stmt.executeUpdate();
+
+			if (affectedRows > 0) {
+				return true;
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 		return false;
 	}
 }
