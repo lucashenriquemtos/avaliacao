@@ -3,6 +3,9 @@ package br.com.lhmatos.dao;
 import br.com.lhmatos.model.ExameRealizado;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
@@ -83,5 +86,27 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 			ex.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<ExameRealizado> findExamesRealizadosBetweenDates(LocalDate startDate, LocalDate endDate) {
+		List<ExameRealizado> exames = new ArrayList<>();
+		String sql = "SELECT * FROM exame_realizado WHERE dt_realizacao BETWEEN ? AND ?";
+		try (Connection conn = getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setDate(1, java.sql.Date.valueOf(startDate));
+			stmt.setDate(2, java.sql.Date.valueOf(endDate));
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				ExameRealizado exameRealizado = new ExameRealizado(
+						rs.getInt("cd_funcionario"),
+						rs.getInt("cd_exame"),
+						rs.getDate("dt_realizacao").toLocalDate()
+				);
+				exames.add(exameRealizado);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return exames;
 	}
 }
