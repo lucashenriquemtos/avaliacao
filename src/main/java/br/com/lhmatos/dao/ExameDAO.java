@@ -102,15 +102,39 @@ public class ExameDAO extends BaseDAO<Exame> {
 
 	@Override
 	public boolean delete(String id) {
-		String sql = "DELETE FROM exame WHERE cd_exame = ?";
+		Integer cdExame = Integer.parseInt(id);
+		if (isExameRealizado(cdExame)) {
+			throw new UnsupportedOperationException("Não é possível excluir o exame, pois ele foi realizado por um ou mais funcionários.");
+		}
 
+		String sql = "DELETE FROM exame WHERE cd_exame = ?";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, id);
-			stmt.execute();
+			stmt.setInt(1, cdExame);
+			int affectedRows = stmt.executeUpdate();
+			if (affectedRows > 0) {
+				return true;
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			return false;
 		}
-		return true;
+		return false;
+	}
+
+	public boolean isExameRealizado(Integer cdExame) {
+		String sql = "SELECT COUNT(*) FROM exame_realizado WHERE cd_exame = ?";
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, cdExame);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				if (count > 0) {
+					return true;
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
 	}
 }
