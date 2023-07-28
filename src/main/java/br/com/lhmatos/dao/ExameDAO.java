@@ -113,4 +113,22 @@ public class ExameDAO extends BaseDAO<Exame> {
 		}
 		return true;
 	}
+
+	public boolean isExameRealizado(Integer cdExame) {
+		String sql = "SELECT COUNT(*) FROM exame_realizado WHERE cd_exame = ?";
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, cdExame);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				if (count > 0) {
+					return true;
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }
