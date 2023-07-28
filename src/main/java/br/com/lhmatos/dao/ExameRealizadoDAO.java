@@ -46,6 +46,6 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 
 	@Override
 	public boolean delete(String id) {
-		return false;
+		throw new UnsupportedOperationException("Essa operação não é suportada.");
 	}
 }
