@@ -84,11 +84,33 @@ public class ExameDAO extends BaseDAO<Exame> {
 
 	@Override
 	public Exame update(Exame exame) {
-		return null;
+		String sql = "UPDATE exame SET nm_exame = ?, ic_ativo = ?, ds_detalhe_exame = ?, ds_detalhe_exame1 = ? WHERE cd_exame = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, exame.getNmExame());
+			stmt.setBoolean(2, exame.getIcAtivo());
+			stmt.setString(3, exame.getDsDetalheExame());
+			stmt.setString(4, exame.getDsDetalheExame1());
+			stmt.setInt(5, exame.getCdExame());
+			stmt.execute();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		return exame;
 	}
 
 	@Override
 	public boolean delete(String id) {
-		return false;
+		String sql = "DELETE FROM exame WHERE cd_exame = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, id);
+			stmt.execute();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
