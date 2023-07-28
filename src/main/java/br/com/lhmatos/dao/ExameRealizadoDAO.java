@@ -26,7 +26,7 @@ public class ExameRealizadoDAO extends BaseDAO<ExameRealizado> {
 
 	@Override
 	public Optional<ExameRealizado> findById(String id) {
-		return Optional.empty();
+		throw new UnsupportedOperationException("Essa operação não é suportada.");
 	}
 
 	@Override
