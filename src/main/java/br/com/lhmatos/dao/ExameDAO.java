@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ExameDAO extends BaseDAO<Exame> {
@@ -52,6 +54,33 @@ public class ExameDAO extends BaseDAO<Exame> {
 		}
 		return exameOptional;
 	}
+
+	public List<Exame> findByCdOrNmOrIc(String cdExame, String nmExame, boolean icAtivo) {
+		List<Exame> exames = new ArrayList<>();
+		String sql = "SELECT * FROM exame WHERE cd_exame = ? OR nm_exame = ? OR ic_ativo = ?";
+
+		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, cdExame);
+			stmt.setString(2, nmExame);
+			stmt.setBoolean(3, icAtivo);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Exame exame = new Exame(
+						rs.getInt("cd_exame"),
+						rs.getString("nm_exame"),
+						rs.getBoolean("ic_ativo"),
+						rs.getString("ds_detalhe_exame"),
+						rs.getString("ds_detalhe_exame1")
+				);
+				exames.add(exame);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return exames;
+	}
+
 
 	@Override
 	public Exame update(Exame exame) {
