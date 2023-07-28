@@ -29,19 +29,22 @@ public class UsuarioDAO extends BaseDAO<Usuario> {
 	}
 
 	@Override
-	public Usuario findById(String id) {
+	public Optional<Usuario> findById(String id) {
+		Optional<Usuario> usuarioOptional = Optional.empty();
 		String sql = "SELECT * FROM usuario WHERE nm_login = ?";
+
 		try (Connection conn = getConnection();
 			 PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				return new Usuario(rs.getString("nm_login"), rs.getString("ds_senha"), rs.getInt("qt_tempo_inatividade"));
+				Usuario usuario = new Usuario(rs.getString("nm_login"), rs.getString("ds_senha"), rs.getInt("qt_tempo_inatividade"));
+				usuarioOptional = Optional.of(usuario);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return usuarioOptional;
 	}
 
 
