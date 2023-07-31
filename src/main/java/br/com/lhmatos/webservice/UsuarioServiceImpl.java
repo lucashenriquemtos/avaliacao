@@ -13,7 +13,9 @@ import java.util.Optional;
 @WebService
 public class UsuarioServiceImpl implements UsuarioService {
 
-	private final UsuarioDAO usuarioDAO;
+	private UsuarioDAO usuarioDAO;
+
+	public UsuarioServiceImpl() { }
 
 	public UsuarioServiceImpl(UsuarioDAO usuarioDAO) {
 		this.usuarioDAO = usuarioDAO;
