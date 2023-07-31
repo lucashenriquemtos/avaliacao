@@ -10,13 +10,12 @@ import java.util.Optional;
 
 public class LoginAction extends ActionSupport implements SessionAware {
 
-	private final UsuarioServiceImpl usuarioService;
+	private UsuarioServiceImpl usuarioService;
 	private String login;
 	private String password;
 	private Map<String, Object> session;
 
-
-	public LoginAction(UsuarioServiceImpl usuarioService) {
+	public void setUsuarioService(UsuarioServiceImpl usuarioService) {
 		this.usuarioService = usuarioService;
 	}
 
@@ -24,8 +23,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		try {
 			Optional<UsuarioDTO> usuarioDTO = usuarioService.login(login, password);
 
-			if (usuarioDTO != null) {
-				session.put("usuarioLogado", usuarioDTO);
+			if (usuarioDTO.isPresent()) {
+				session.put("usuarioLogado", usuarioDTO.get());
 				return SUCCESS;
 			}
 		} catch (IllegalArgumentException ex) {
