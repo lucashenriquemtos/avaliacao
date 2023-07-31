@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,17 +11,18 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2>Login</h2>
-            <form action="login" method="post">
+            <s:form action="login" method="post">
                 <div class="form-group">
                     <label for="login">Login</label>
-                    <input type="text" class="form-control" id="login" name="login" required>
+                    <s:textfield class="form-control" id="login" name="login" required="true" />
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <s:password class="form-control" id="password" name="password" required="true" />
                 </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
-            </form>
+                <s:submit class="btn btn-primary" value="Entrar" />
+            </s:form>
+            <s:actionerror/>
         </div>
     </div>
 </div>

@@ -6,18 +6,59 @@
 <struts>
     <constant name="struts.devMode" value="true" />
 
-    <package name="default" extends="struts-default" namespace="/">
+    <package name="br.com.lhmatos" extends="struts-default" namespace="/">
         <action name="index">
             <result>/index.jsp</result>
         </action>
 
-        <action name="login" class="br.com.lhmatos.actions.LoginAction" method="execute">
+        <action name="login" class="br.com.lhmatos.action.LoginAction" method="execute">
             <result name="success">/home.jsp</result>
             <result name="input">/login.jsp</result>
         </action>
 
-        <action name="logout" class="br.com.lhmatos.actions.LogoutAction" method="execute">
+        <action name="logout" class="br.com.lhmatos.action.LogoutAction" method="execute">
             <result>/login.jsp</result>
+        </action>
+
+        <action name="*Usuarios*"
+                class="br.com.lhmatos.action.usuario.UsuarioAction" method="{1}">
+            <result name="success">/usuario/usuarioSuccess.jsp</result>
+            <result name="input">/usuario/usuarioInput.jsp</result>
+            <result name="edit">/usuario/usuarioEdit.jsp</result>
+            <result name="delete">/usuario/usuarioDelete.jsp</result>
+            <result name="login">/login/login.jsp</result>
+            <result name="redirect" type="redirectAction">todosUsuarios</result>
+        </action>
+
+
+        <action name="*Exames*"
+                class="br.com.lhmatos.action.exame.ExameAction" method="{1}">
+            <result name="success">/exame/cadExame_b.jsp</result>
+            <result name="input">/exame/cadExame_i.jsp</result>
+            <result name="edit">/exame/cadExame_e.jsp</result>
+            <result name="login">/login/login.jsp</result>
+            <result name="redirect" type="redirectAction">todosExames</result>
+        </action>
+
+        <action name="*Funcionario*"
+                class="br.com.lhmatos.action.funcionario.FuncionarioAction"
+                method="{1}">
+            <result name="success">/funcionario/cadFuncionario_b.jsp</result>
+            <result name="input">/funcionario/cadFuncionario_i.jsp</result>
+            <result name="edit">/funcionario/cadFuncionario_e.jsp</result>
+            <result name="login">/login/login.jsp</result>
+            <result name="redirect" type="redirectAction">todosFuncionarios</result>
+        </action>
+
+        <action name="*Ficha*"
+                class="br.com.lhmatos.action.ficha.FichaAction" method="{1}">
+            <result name="success">/ficha/cadFicha_b.jsp</result>
+            <result name="input">/ficha/cadFicha_i.jsp</result>
+            <result name="edit">/ficha/cadFicha_e.jsp</result>
+            <result name="login">/login/login.jsp</result>
+            <result name="report_examesrealizados">/ficha/relatorio/relatorio_examesrealizados.jsp</result>
+            <result name="report_topexames">/ficha/relatorio/relatorio_topexames.jsp</result>
+            <result name="redirect" type="redirectAction">todosFichas</result>
         </action>
     </package>
 </struts>
