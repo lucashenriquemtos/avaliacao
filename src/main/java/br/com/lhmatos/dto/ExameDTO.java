@@ -20,10 +20,7 @@ public class ExameDTO {
 	private String dsDetalheExame1;
 
 	public Exame toExame() {
-		Exame exame = new Exame(cdExame, icAtivo);
-		exame.setNmExame(nmExame);
-		exame.setDsDetalheExame(dsDetalheExame);
-		exame.setDsDetalheExame1(dsDetalheExame1);
+		Exame exame = new Exame(cdExame, nmExame, icAtivo, dsDetalheExame, dsDetalheExame1);
 		return exame;
 	}
 
