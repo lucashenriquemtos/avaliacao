@@ -1,4 +1,4 @@
-package br.com.lhmatos.service;
+package br.com.lhmatos.webservice;
 
 public interface BaseService<T> {
 	T create(T dto);

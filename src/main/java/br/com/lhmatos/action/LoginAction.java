@@ -1,7 +1,7 @@
 package br.com.lhmatos.action;
 
 import br.com.lhmatos.dto.UsuarioDTO;
-import br.com.lhmatos.service.UsuarioServiceImpl;
+import br.com.lhmatos.webservice.UsuarioServiceImpl;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
