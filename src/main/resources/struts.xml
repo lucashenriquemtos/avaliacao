@@ -30,10 +30,10 @@
 
         <action name="*Exames*"
                 class="br.com.lhmatos.action.exame.ExameAction" method="{1}">
-            <result name="success">/exame/cadExame_b.jsp</result>
-            <result name="input">/exame/cadExame_i.jsp</result>
-            <result name="edit">/exame/cadExame_e.jsp</result>
-            <result name="login">/login/login.jsp</result>
+            <result name="success">/exame/exameSuccess.jsp</result>
+            <result name="input">/exame/exameInput.jsp</result>
+            <result name="edit">/exame/exameEdit.jsp</result>
+            <result name="login">/login/exameDelete.jsp</result>
             <result name="redirect" type="redirectAction">todosExames</result>
         </action>
 
