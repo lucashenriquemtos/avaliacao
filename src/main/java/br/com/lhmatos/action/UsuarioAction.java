@@ -85,7 +85,7 @@ public class UsuarioAction extends ActionSupport implements SessionAware, Servle
 
 	public String delete() {
 		try {
-			usuarioService.deleteByLogin(usuarioDTO.getNmLogin());
+			usuarioService.delete(usuarioDTO.getNmLogin());
 			return SUCCESS;
 		} catch (RuntimeException e) {
 			addActionError(e.getMessage());

@@ -63,7 +63,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@WebMethod
 	@Override
-	public boolean deleteByLogin(String login) {
+	public boolean delete(String login) {
 		UsuarioDTO usuario = this.findById(login);
 		if (usuario == null) {
 			throw new RuntimeException("Usuário com id " + login + " não existe");
