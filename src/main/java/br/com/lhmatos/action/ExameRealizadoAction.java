@@ -12,6 +12,8 @@ public class ExameRealizadoAction extends ActionSupport {
 	private ExameRealizadoServiceImpl exameRealizadoService;
 	private ExameRealizadoDTO exameRealizadoDTO;
 	private List<ExameRealizadoDTO> examesRealizados;
+	private LocalDate startDate;
+	private LocalDate endDate;
 
 	public void setExameRealizadoService(ExameRealizadoServiceImpl exameRealizadoService) {
 		this.exameRealizadoService = exameRealizadoService;
@@ -105,16 +107,13 @@ public class ExameRealizadoAction extends ActionSupport {
 		}
 	}
 
-	public String findExamesRealizadosBetweenDates() {
+	public String search() {
 		try {
-			LocalDate startDate = LocalDate.parse("2023-01-01"); // Ajuste a data de início conforme necessário
-			LocalDate endDate = LocalDate.parse("2023-07-31");   // Ajuste a data de término conforme necessário
-
 			examesRealizados = exameRealizadoService.findExamesRealizadosBetweenDates(startDate, endDate);
 			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
-			addActionError("Ocorreu um erro ao buscar os exames realizados entre as datas. Por favor, tente novamente mais tarde.");
+			addActionError("Ocorreu um erro ao buscar os exames realizados. Por favor, tente novamente mais tarde.");
 			return ERROR;
 		}
 	}
