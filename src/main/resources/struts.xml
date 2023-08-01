@@ -11,14 +11,14 @@
             <result>/index.jsp</result>
         </action>
 
-        <action name="login" class="br.com.lhmatos.action.LoginAction" method="execute">
+        <action name="login" class="br.com.lhmatos.action.LoginAction" method="{1}">
             <result name="success">/home.jsp</result>
             <result name="input">/login.jsp</result>
             <result name="error">/login.jsp</result>
         </action>
 
         <action name="*Usuarios*"
-                class="br.com.lhmatos.action.usuario.UsuarioAction" method="execute">
+                class="br.com.lhmatos.action.usuario.UsuarioAction" method="{1}">
             <result name="success">/usuario/usuarioSuccess.jsp</result>
             <result name="input">/usuario/usuarioInput.jsp</result>
             <result name="edit">/usuario/usuarioEdit.jsp</result>
@@ -34,7 +34,6 @@
             <result name="input">/exame/exameInput.jsp</result>
             <result name="edit">/exame/exameEdit.jsp</result>
             <result name="login">/login/exameDelete.jsp</result>
-            <result name="redirect" type="redirectAction">todosExames</result>
         </action>
 
         <action name="*Funcionario*"
