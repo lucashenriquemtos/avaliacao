@@ -44,15 +44,14 @@
             <result name="login">/login/login.jsp</result>
         </action>
 
-        <action name="*Ficha*"
-                class="br.com.lhmatos.action.FichaAction" method="{1}">
-            <result name="success">/ficha/exameSuccess.jsp</result>
-            <result name="input">/ficha/exameSuccess.jsp</result>
-            <result name="edit">/ficha/exameSuccess.jsp</result>
+        <action name="*ExameRealizado*"
+                class="br.com.lhmatos.action.ExameRealizadoAction" method="{1}">
+            <result name="success">/exames-realizado/exameRealizadoSuccess.jsp</result>
+            <result name="input">/exames-realizado/exameRealizadoInput.jsp</result>
+            <result name="edit">/exames-realizado/exameRelizadoEdit.jsp</result>
+            <result name="delete">/exames-realizado/exameRelizadoDelete.jsp</result>
             <result name="login">/login/login.jsp</result>
-            <result name="report_examesrealizados">/ficha/relatorio/rel_examesrealizados.jsp</result>
-            <result name="report_topexames">/ficha/relatorio/relatorio_topexames.jsp</result>
-            <result name="redirect" type="redirectAction">todosFichas</result>
+            <result name="report_examesrealizados">/exame-realizado/exameRealizadoReport.jsp</result>
         </action>
     </package>
 </struts>
