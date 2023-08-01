@@ -1,15 +1,21 @@
-package br.com.lhmatos.service;
+package br.com.lhmatos.webservice;
 
 import br.com.lhmatos.dao.UsuarioDAO;
 import br.com.lhmatos.dto.UsuarioDTO;
 import br.com.lhmatos.model.Usuario;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
 
+
+@WebService
 public class UsuarioServiceImpl implements UsuarioService {
 
-	private final UsuarioDAO usuarioDAO;
+	private UsuarioDAO usuarioDAO;
+
+	public UsuarioServiceImpl() { }
 
 	public UsuarioServiceImpl(UsuarioDAO usuarioDAO) {
 		this.usuarioDAO = usuarioDAO;
@@ -36,14 +42,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return createdUsuarioDTO;
 	}
 
+	@WebMethod
 	@Override
 	public UsuarioDTO findById(String id) {
-		Usuario usuario = usuarioDAO.findById(id);
-		return Optional.ofNullable(usuario)
-				.map(UsuarioDTO::fromUsuario)
+		Optional<Usuario> usuario = usuarioDAO.findById(id);
+		return usuario.map(UsuarioDTO::fromUsuario)
 				.orElseThrow(() -> new RuntimeException("Usuario com o ID: " + id + " não encontrado."));
 	}
 
+
+	@WebMethod
 	@Override
 	public UsuarioDTO update(UsuarioDTO usuarioDTO) {
 		Usuario updatedUsuario = usuarioDAO.update(usuarioDTO.toUsuario());
@@ -53,6 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return UsuarioDTO.fromUsuario(updatedUsuario);
 	}
 
+	@WebMethod
 	@Override
 	public boolean deleteByLogin(String login) {
 		UsuarioDTO usuario = this.findById(login);
@@ -61,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return usuarioDAO.delete(login);
 	}
-
+	@WebMethod
 	public Optional<UsuarioDTO> login(String username, String password) {
 		Optional<Usuario> usuario = usuarioDAO.findByUsername(username);
 		if (!usuario.isPresent()) {

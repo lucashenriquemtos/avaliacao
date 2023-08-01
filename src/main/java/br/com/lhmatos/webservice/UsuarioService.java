@@ -1,4 +1,4 @@
-package br.com.lhmatos.service;
+package br.com.lhmatos.webservice;
 
 import br.com.lhmatos.dto.UsuarioDTO;
 
