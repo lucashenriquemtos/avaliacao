@@ -5,6 +5,8 @@ import br.com.lhmatos.dto.ExameDTO;
 import br.com.lhmatos.model.Exame;
 import jakarta.jws.WebService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @WebService
@@ -66,5 +68,17 @@ public class ExameServiceImpl implements ExameService {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<ExameDTO> findByCdOrNmOrIc(String cdExame, String nmExame, boolean icAtivo) {
+		List<ExameDTO> exameDTOs = new ArrayList<>();
+		List<Exame> exames = exameDAO.findByCdOrNmOrIc(cdExame, nmExame, icAtivo);
+
+		for (Exame exame : exames) {
+			exameDTOs.add(ExameDTO.fromExame(exame));
+		}
+
+		return exameDTOs;
 	}
 }
