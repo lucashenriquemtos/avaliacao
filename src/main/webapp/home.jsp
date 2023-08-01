@@ -1,24 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="br.com.lhmatos.dto.UsuarioDTO" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Página Inicial</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-light bg-light">
-        <span class="navbar-text">
-            Bem-vindo,
-            <%
-                HttpSession httpsession = request.getSession();
-                UsuarioDTO usuarioLogado = (UsuarioDTO) session.getAttribute("usuarioLogado");
-                if (usuarioLogado != null) {
-                    System.out.println(usuarioLogado.getNmLogin());
-                }
-            %>
-        </span>
-</nav>
+<%@ include file="header.jsp" %>
+
+
+
 </body>
 </html>

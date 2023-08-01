@@ -6,6 +6,7 @@
     <title>Ação de Usuário Bem-sucedida</title>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 <h1>Ação realizada com sucesso!</h1>
 <p>Detalhes do usuário:</p>
 <table>
