@@ -42,6 +42,7 @@ public class ExameServiceImpl implements ExameService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException("Erro ao buscar exame por ID");
 		}
 		return null;
 	}
@@ -61,7 +62,7 @@ public class ExameServiceImpl implements ExameService {
 	}
 
 	@Override
-	public boolean deleteByLogin(String id) {
+	public boolean delete(String id) {
 		try {
 			return exameDAO.delete(id);
 		} catch (Exception e) {

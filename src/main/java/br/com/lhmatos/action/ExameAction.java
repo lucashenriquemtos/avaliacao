@@ -89,7 +89,7 @@ public class ExameAction extends ActionSupport {
 
 	public String delete() {
 		try {
-			boolean deleted = exameService.deleteByLogin(exameDTO.getCdExame().toString());
+			boolean deleted = exameService.delete(exameDTO.getCdExame().toString());
 			if (deleted) {
 				addActionMessage("Exame excluído com sucesso!");
 				return SUCCESS;
