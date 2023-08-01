@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
