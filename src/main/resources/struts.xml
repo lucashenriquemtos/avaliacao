@@ -18,41 +18,39 @@
         </action>
 
         <action name="*Usuarios*"
-                class="br.com.lhmatos.action.usuario.UsuarioAction" method="{1}">
+                class="br.com.lhmatos.action.UsuarioAction" method="{1}">
             <result name="success">/usuario/usuarioSuccess.jsp</result>
             <result name="input">/usuario/usuarioInput.jsp</result>
             <result name="edit">/usuario/usuarioEdit.jsp</result>
             <result name="delete">/usuario/usuarioDelete.jsp</result>
             <result name="login">/login/login.jsp</result>
-            <result name="redirect" type="redirectAction">todosUsuarios</result>
         </action>
 
-
         <action name="*Exames*"
-                class="br.com.lhmatos.action.exame.ExameAction" method="{1}">
+                class="br.com.lhmatos.action.ExameAction" method="{1}">
             <result name="success">/exame/exameSuccess.jsp</result>
             <result name="input">/exame/exameInput.jsp</result>
             <result name="edit">/exame/exameEdit.jsp</result>
-            <result name="login">/login/exameDelete.jsp</result>
+            <result name="login">/login/login.jsp</result>
         </action>
 
         <action name="*Funcionario*"
-                class="br.com.lhmatos.action.funcionario.FuncionarioAction"
+                class="br.com.lhmatos.action.FuncionarioAction"
                 method="{1}">
-            <result name="success">/funcionario/cadFuncionario_b.jsp</result>
-            <result name="input">/funcionario/cadFuncionario_i.jsp</result>
-            <result name="edit">/funcionario/cadFuncionario_e.jsp</result>
+            <result name="success">/funcionario/funcionarioSuccess.jsp</result>
+            <result name="input">/funcionario/funcionarioInput.jsp</result>
+            <result name="edit">/funcionario/funcionarioEdit.jsp</result>
+            <result name="delete">/funcionario/funcionarioDelete.jsp</result>
             <result name="login">/login/login.jsp</result>
-            <result name="redirect" type="redirectAction">todosFuncionarios</result>
         </action>
 
         <action name="*Ficha*"
-                class="br.com.lhmatos.action.ficha.FichaAction" method="{1}">
-            <result name="success">/ficha/cadFicha_b.jsp</result>
-            <result name="input">/ficha/cadFicha_i.jsp</result>
-            <result name="edit">/ficha/cadFicha_e.jsp</result>
+                class="br.com.lhmatos.action.FichaAction" method="{1}">
+            <result name="success">/ficha/exameSuccess.jsp</result>
+            <result name="input">/ficha/exameSuccess.jsp</result>
+            <result name="edit">/ficha/exameSuccess.jsp</result>
             <result name="login">/login/login.jsp</result>
-            <result name="report_examesrealizados">/ficha/relatorio/relatorio_examesrealizados.jsp</result>
+            <result name="report_examesrealizados">/ficha/relatorio/rel_examesrealizados.jsp</result>
             <result name="report_topexames">/ficha/relatorio/relatorio_topexames.jsp</result>
             <result name="redirect" type="redirectAction">todosFichas</result>
         </action>
